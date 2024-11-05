@@ -1,20 +1,17 @@
-# Use Fedora as the base image
-FROM fedora:latest
+# Based on: https://github.com/flatpak/flatpak-docker-images/blob/master/Dockerfile
 
-# Install the required packages
-RUN dnf install -y \
-      flatpak \
-      flatpak-builder \
-      p7zip \
-      xmlstarlet \
-      bzip2 \
-      curl \
-      jq && \
+FROM fedora:41
+VOLUME /build
+WORKDIR /build
+ENV FLATPAK_GL_DRIVERS=dummy
+RUN dnf -y update && \
+    dnf install -y flatpak-builder ostree fuse elfutils dconf git bzr p7zip xmlstarlet bzip2 curl jq && \
     dnf clean all
 
-# Add flathub and flathub-beta remotes for flatpak
-RUN flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo && \
-    flatpak remote-add --user --if-not-exists flathub-beta https://flathub.org/beta-repo/flathub-beta.flatpakrepo
+RUN flatpak remote-add flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+RUN flatpak remote-add flathub-beta https://flathub.org/beta-repo/flathub-beta.flatpakrepo
+RUN flatpak remote-add gnome-nightly https://sdk.gnome.org/gnome-nightly.flatpakrepo
+RUN flatpak remote-add gnome https://sdk.gnome.org/gnome.flatpakrepo
 
 # Set default command (optional, for testing purposes)
 ENTRYPOINT [ "flatpak-builder" ]
