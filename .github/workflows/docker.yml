@@ -7,7 +7,7 @@ on:
       - ".github/workflows/docker.yml"  # Also triggers when the workflow itself is updated
 
 env:
-  IMAGE_NAME: ghcr.io/retrodeck-builder:${{ github.sha }}  # Image name with SHA tag
+  IMAGE_NAME: ghcr.io/retrodeck/retrodeck-builder:${{ github.sha }}  # Image name with SHA tag
 
 jobs:
   build-and-push:
@@ -35,5 +35,5 @@ jobs:
       - name: Tag as Latest
         if: github.ref == 'refs/heads/main'  # Only tag as 'latest' on the main branch
         run: |
-          docker tag $IMAGE_NAME ghcr.io/retrodeck-builder:latest
-          docker push ghcr.io/retrodeck-builder:latest
+          docker tag $IMAGE_NAME ghcr.io/retrodeck/retrodeck-builder:latest
+          docker push ghcr.io/retrodeck/retrodeck-builder:latest
