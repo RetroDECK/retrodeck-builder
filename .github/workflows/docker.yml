@@ -1,0 +1,38 @@
+name: "Build and Publish Docker Image"
+
+on:
+  push:
+    paths:
+      - "Dockerfile"  # Trigger only when the Dockerfile is modified
+
+env:
+  IMAGE_NAME: ghcr.io/${{ github.repository }}:${{ github.sha }}  # Image name with SHA tag
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build Docker Image
+        run: |
+          docker build -t $IMAGE_NAME .
+
+      - name: Push Docker Image to GitHub Container Registry
+        run: |
+          docker push $IMAGE_NAME
+
+      - name: Tag as Latest (optional)
+        if: github.ref == 'refs/heads/main'  # Only tag as 'latest' on the main branch
+        run: |
+          docker tag $IMAGE_NAME ghcr.io/${{ github.repository }}:latest
+          docker push ghcr.io/${{ github.repository }}:latest
