@@ -1,3 +1,6 @@
+# NOT WORKING
+Until flapak can solve the issue of bwrap
+
 # retrodeck-builder
 A docker container to ease RetroDECK's build
 
