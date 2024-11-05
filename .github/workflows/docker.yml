@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - "Dockerfile"  # Trigger only when the Dockerfile is modified
+      - ".github/workflows/docker.yml"
 
 env:
   IMAGE_NAME: ghcr.io/retrodeck-builder:${{ github.sha }}  # Image name with SHA tag
