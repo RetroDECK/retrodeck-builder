@@ -6,7 +6,7 @@ on:
       - "Dockerfile"  # Trigger only when the Dockerfile is modified
 
 env:
-  IMAGE_NAME: ghcr.io/${{ github.repository }}:${{ github.sha }}  # Image name with SHA tag
+  IMAGE_NAME: ghcr.io/retrodeck-builder:${{ github.sha }}  # Image name with SHA tag
 
 jobs:
   build-and-push:
@@ -34,5 +34,5 @@ jobs:
       - name: Tag as Latest (optional)
         if: github.ref == 'refs/heads/main'  # Only tag as 'latest' on the main branch
         run: |
-          docker tag $IMAGE_NAME ghcr.io/${{ github.repository }}:latest
-          docker push ghcr.io/${{ github.repository }}:latest
+          docker tag $IMAGE_NAME ghcr.io/retrodeck:latest
+          docker push ghcr.io/retrodeck:latest
