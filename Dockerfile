@@ -10,7 +10,6 @@ RUN dnf -y update && \
 
 RUN flatpak remote-add flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 RUN flatpak remote-add flathub-beta https://flathub.org/beta-repo/flathub-beta.flatpakrepo
-RUN flatpak remote-add gnome https://sdk.gnome.org/gnome.flatpakrepo
 
 # Set default command (optional, for testing purposes)
 ENTRYPOINT [ "flatpak-builder" ]
