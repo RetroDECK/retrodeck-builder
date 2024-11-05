@@ -17,4 +17,4 @@ RUN flatpak remote-add --system --if-not-exists flathub https://flathub.org/repo
 RUN flatpak remote-add --system --if-not-exists flathub-beta https://flathub.org/beta-repo/flathub-beta.flatpakrepo
 
 # Set default command (optional, for testing purposes)
-ENTRYPOINT [ "flatpak-builder", "--install-deps-from=flathub", "--install-deps-from=flathub-beta" ]
+ENTRYPOINT [ "flatpak-builder", "--install-deps-from=flathub", "--install-deps-from=flathub-beta", "--disable-rofiles-fuse" ]
